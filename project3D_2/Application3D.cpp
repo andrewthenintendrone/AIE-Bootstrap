@@ -22,8 +22,7 @@ bool Application3D::startup() {
     // set RNG seed
     srand((int)time(NULL));
 
-	setBackgroundColour(1, 1, 1, 1);
-    //setBackgroundColour(30.0f / 255.0f, 30.0f / 255.0f, 30.0f / 255.0f, 1);
+    setBackgroundColour(30.0f / 255.0f, 30.0f / 255.0f, 30.0f / 255.0f, 1);
 
 	// initialise gizmo primitive counts
 	Gizmos::create(20000, 20000, 20000, 20000);
@@ -68,9 +67,15 @@ void Application3D::update(float deltaTime) {
 	Gizmos::clear();
 
 	// draw a simple grid with gizmos
+    vec4 black(0, 0, 0, 1);
 	vec4 white(1);
-	vec4 black(0, 0, 0, 1);
-    vec4 green(0, 1, 0, 1);
+    vec4 red(1, 0, 0, 1);
+    vec4 orange(1, 0.5f, 0, 1);
+    vec4 yellow(1, 1, 0, 1);
+    vec4 green(0, 0.5f, 0, 1);
+    vec4 blue(0, 0, 0.5f, 1);
+    vec4 purple(0.5f, 0, 1, 1);
+    vec4 flesh(1, 203.0f / 255.0f, 164.0f / 255.0f, 1);
 	/*for (int i = 0; i < 21; ++i) {
 		Gizmos::addLine(vec3(-10 + i, 0, 10),
 						vec3(-10 + i, 0, -10),
@@ -101,11 +106,11 @@ void Application3D::update(float deltaTime) {
     }
     for (unsigned int i = 0; i < currentModel.faces.size(); i++)
     {
-        vec4 color(rand() % 256 / 255.0f, rand() % 256 / 255.0f, rand() % 256 / 255.0f, 1);
+        //vec4 color(rand() % 256 / 255.0f, rand() % 256 / 255.0f, rand() % 256 / 255.0f, 1);
         Gizmos::addTri(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], black);
-        //Gizmos::addLine(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], green);
-        //Gizmos::addLine(currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], green);
-        //Gizmos::addLine(currentModel.vertices[currentModel.faces[i].z], currentModel.vertices[currentModel.faces[i].x], green);
+        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], purple);
+        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], purple);
+        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].z], currentModel.vertices[currentModel.faces[i].x], purple);
     }
 
 	// quit if we press escape

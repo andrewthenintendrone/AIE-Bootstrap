@@ -50,9 +50,13 @@ struct Model
             }
             if (strcmp(lineHeader, "f") == 0)
             {
-                int x, y, z;
-                fscanf_s(file, "%d %d %d\n", &x, &y, &z);
-                faces.push_back(Face{ x - 1, y - 1, z - 1 });
+                unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+                int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+                Face temp;
+                temp.x = vertexIndex[0] - 1;
+                temp.y = vertexIndex[1] - 1;
+                temp.z = vertexIndex[2] - 1;
+                faces.push_back(temp);
             }
         }
     }
@@ -91,7 +95,7 @@ public:
     std::vector<Model>models;
     Model currentModel;
 
-    int upgrade = 0;
+    unsigned int upgrade = 0;
 
 protected:
 

@@ -40,12 +40,14 @@ bool Application3D::startup() {
     models.push_back(Model());
     models.push_back(Model());
     models.push_back(Model());
+    models.push_back(Model());
 
     models[0].load("./models/PorygonObj.obj");
     models[1].load("./models/Porygon2Obj.obj");
     models[2].load("./models/Porygon-ZObj.obj");
     models[3] = Model::generateRandom();
     models[4].load("./models/triforce.obj");
+    models[5].load("./models/pikachu.obj");
     for (unsigned int i = 0; i < models.size(); i++)
     {
         for (unsigned int j = 0; j < models[i].vertices.size(); j++)
@@ -107,18 +109,9 @@ void Application3D::update(float deltaTime) {
 	t[3] = vec4(-2, 0, 0, 1);
 	Gizmos::addCylinderFilled(vec3(0), 0.5f, 1, 5, vec4(0, 1, 1, 1), &t);*/
 
-    currentModel = models[upgrade];
     if (upgrade == 3)
     {
         models[3] = Model::generateRandom();
-    }
-    for (unsigned int i = 0; i < currentModel.faces.size(); i++)
-    {
-        //vec4 color(rand() % 256 / 255.0f, rand() % 256 / 255.0f, rand() % 256 / 255.0f, 1);
-        Gizmos::addTri(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], black);
-        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], purple);
-        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], purple);
-        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].z], currentModel.vertices[currentModel.faces[i].x], purple);
     }
 
 	// quit if we press escape
@@ -129,7 +122,7 @@ void Application3D::update(float deltaTime) {
 
     if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
     {
-        if (upgrade < 4)
+        if (upgrade < models.size() - 1)
         {
             upgrade++;
         }
@@ -137,6 +130,16 @@ void Application3D::update(float deltaTime) {
         {
             upgrade = 0;
         }
+    }
+    currentModel = models[upgrade];
+
+    for (unsigned int i = 0; i < currentModel.faces.size(); i++)
+    {
+        //vec4 color(rand() % 256 / 255.0f, rand() % 256 / 255.0f, rand() % 256 / 255.0f, 1);
+        Gizmos::addTri(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], black);
+        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].x], currentModel.vertices[currentModel.faces[i].y], purple);
+        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].y], currentModel.vertices[currentModel.faces[i].z], purple);
+        Gizmos::addLine(currentModel.vertices[currentModel.faces[i].z], currentModel.vertices[currentModel.faces[i].x], purple);
     }
 }
 

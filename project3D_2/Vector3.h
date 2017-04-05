@@ -1,23 +1,42 @@
 #pragma once
+#include <math.h>
 #include <iostream>
+#include <glm/glm.hpp>
 
 class Vector3
 {
 public:
 	// variables
-	float x;
-	float y;
-	float z;
+	union
+	{
+		struct
+		{
+			float v[3];
+		};
+		struct
+		{
+			float x;
+			float y;
+			float z;
+		};
+	};
 
 	// constructors and destructor
 	Vector3();
+	Vector3(const float& newValue);
 	Vector3(float newX, float newY, float newZ);
+	Vector3(const Vector3& newVector);
 	~Vector3();
 
 	// functions
-	float getMagnitude();
-	void Normalize();
-	Vector3 Vector3::normalized();
+	float dot(Vector3& rhs);
+	Vector3 cross(Vector3& rhs);
+	float magnitude();
+	float squaremagnitude();
+	void normalise();
+	Vector3 normalized();
+	float angle(Vector3& rhs);
+    static glm::vec3 openGLnormalise(glm::vec3 newVector);
 
 	// static Vector3 shortcuts
 	static Vector3 Up();
@@ -27,14 +46,20 @@ public:
 	static Vector3 Forward();
 	static Vector3 Back();
 	static Vector3 Zero();
-	static Vector3 Random(const int& range);
 
 	// operator overloads
+	operator float *();
+	float& operator [] (const int& index);
 	bool operator == (const Vector3& rhs);
-	void operator = (const Vector3& vec);
-	void operator += (const Vector3& vec);
-	void operator -= (const Vector3& vec);
+	void operator = (const Vector3& rhs);
+	Vector3 operator + (const Vector3& rhs);
+	void operator += (const Vector3& rhs);
+	Vector3 operator - (const Vector3& rhs);
+	void operator -= (const Vector3& rhs);
+	Vector3 operator * (const float& scalar);
+	friend Vector3 operator * (const float& scalar, Vector3& vector);
 	void operator *= (const float& scalar);
+	Vector3 operator / (const float& scalar);
 	void operator /= (const float& scalar);
 	friend std::ostream& operator << (std::ostream& stream, const Vector3& vector);
 };

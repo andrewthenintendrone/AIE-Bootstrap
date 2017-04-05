@@ -3,6 +3,7 @@
 #include "Input.h"
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include "Vector3.h"
 
 using glm::vec3;
 using glm::vec4;
@@ -45,6 +46,13 @@ bool Application3D::startup() {
     models[2].load("./models/Porygon-ZObj.obj");
     models[3] = Model::generateRandom();
     models[4].load("./models/triforce.obj");
+    for (unsigned int i = 0; i < models.size(); i++)
+    {
+        for (unsigned int j = 0; j < models[i].vertices.size(); j++)
+        {
+            models[i].vertices[j] = Vector3::openGLnormalise(models[i].vertices[j]);
+        }
+    }
 
 	return true;
 }

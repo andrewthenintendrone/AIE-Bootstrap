@@ -21,6 +21,9 @@
     <ClCompile Include="Application3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,6 +31,9 @@
   <ItemGroup>
     <ClInclude Include="Application3D.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>Source Files</Filter>
